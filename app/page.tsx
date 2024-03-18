@@ -1,3 +1,9 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 
@@ -22,10 +28,15 @@ export default async function Home() {
   const { data } = await getClient().query<AllFilmsResponse>({ query });
 
   return (
-    <ul>
-      {data.allFilms.films.map((film) => (
-        <li key={film.id}>{film.title}</li>
-      ))}
-    </ul>
+    <main className="max-w-md mx-auto">
+      <Accordion type="single" collapsible>
+        {data.allFilms.films.map((film) => (
+          <AccordionItem key={film.id} value={film.id}>
+            <AccordionTrigger>{film.title}</AccordionTrigger>
+            <AccordionContent>More info for {film.title}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </main>
   );
 }
