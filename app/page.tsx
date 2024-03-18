@@ -1,3 +1,5 @@
+import { ApolloWrapper } from "@/components/apollo-wrapper";
+import { OpeningCrawl } from "@/components/opening-crawl";
 import {
   Accordion,
   AccordionContent,
@@ -33,7 +35,11 @@ export default async function Home() {
         {data.allFilms.films.map((film) => (
           <AccordionItem key={film.id} value={film.id}>
             <AccordionTrigger>{film.title}</AccordionTrigger>
-            <AccordionContent>More info for {film.title}</AccordionContent>
+            <AccordionContent>
+              <ApolloWrapper>
+                <OpeningCrawl filmId={film.id} />
+              </ApolloWrapper>
+            </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
